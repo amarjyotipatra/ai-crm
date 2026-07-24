@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// In production / docker, endpoint can be /api or direct http://localhost:8000
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+// In production / docker, default to http://localhost:8000 for backend API
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 const api = axios.create({
   baseURL: API_BASE_URL,

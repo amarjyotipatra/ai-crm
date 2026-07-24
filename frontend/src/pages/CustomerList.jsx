@@ -27,9 +27,10 @@ export default function CustomerList({ onSelectCustomer }) {
     setLoading(true);
     try {
       const data = await customerAPI.getCustomers(search, selectedStage === 'All' ? '' : selectedStage);
-      setCustomers(data);
+      setCustomers(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Error fetching customers:", err);
+      setCustomers([]);
     } finally {
       setLoading(false);
     }
@@ -72,9 +73,10 @@ export default function CustomerList({ onSelectCustomer }) {
   };
 
   // Metric computations
-  const totalPipelineValue = customers.reduce((sum, c) => sum + (c.value || 0), 0);
-  const wonDeals = customers.filter(c => c.stage === 'Won').length;
-  const winRate = customers.length > 0 ? Math.round((wonDeals / customers.length) * 100) : 0;
+  const safeCustomers = Array.isArray(customers) ? customers : [];
+  const totalPipelineValue = safeCustomers.reduce((sum, c) => sum + (c.value || 0), 0);
+  const wonDeals = safeCustomers.filter(c => c.stage === 'Won').length;
+  const winRate = safeCustomers.length > 0 ? Math.round((wonDeals / safeCustomers.length) * 100) : 0;
 
   return (
     <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '24px' }}>
