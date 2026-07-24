@@ -52,11 +52,11 @@ Requirements:
     try:
         return _call_gemini_api(prompt)
     except Exception:
-        # High quality smart fallback generator
+        # High quality smart fallback generator (safe; references notes_summary not undefined variables)
         subject = f"Following up on our recent conversation - {customer.company or customer.name}"
-        if tone.lower() == "urgent":
+        if tone and tone.lower() == "urgent":
             subject = f"Action Required: Next steps for {customer.company or customer.name}"
-        elif tone.lower() == "friendly":
+        elif tone and tone.lower() == "friendly":
             subject = f"Great speaking with you, {customer.name}!"
 
         return f"""Subject: {subject}
@@ -65,9 +65,10 @@ Hi {customer.name},
 
 I hope this email finds you well!
 
-Following up on our recent discussions regarding {customer.company or 'your business goals'}, I wanted to check in and see how things are progressing on your end. Based on our previous interaction ({notes[-1].content if notes else 'our initial conversation'}), we were looking into advancing our proposal for the {customer.stage} phase.
+Following up on our recent discussions regarding {customer.company or 'your business goals'}. Here are the most recent interaction notes we have:
+{notes_summary}
 
-Our team is ready to help you accelerate your timeline and ensure maximum ROI. 
+Our team is ready to help you accelerate your timeline and ensure maximum ROI.
 
 Would you have 15 minutes open later this week for a brief catch-up call to review next steps?
 
