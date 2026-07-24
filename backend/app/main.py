@@ -83,9 +83,9 @@ async def lifespan(app: FastAPI):
                         sentiment="Negative",
                         category="Call"
                     ))
+        yield
     finally:
         db.close()
-    yield
 
 app = FastAPI(
     title="AI-Powered Mini CRM API",
