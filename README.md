@@ -44,7 +44,7 @@ ai-mini-crm/
 │   │   ├── models.py            # Customer & Note ORM models
 │   │   ├── schemas.py           # Pydantic request/response schemas
 │   │   ├── crud.py              # Database query operations & sentiment heuristic engine
-│   │   ├── ai_service.py        # Gemini 2.5 Flash SDK integration & smart offline fallback
+│   │   ├── ai_service.py        # Gemini 3.0 Flash SDK integration & smart offline fallback
 │   │   └── routers/
 │   │       ├── customers.py     # Customer CRUD endpoints (singualr & plural URI aliases)
 │   │       ├── notes.py         # Customer notes endpoints
@@ -150,7 +150,7 @@ Expected test output:
 
 ## 🤖 AI Prompts Used
 
-The application utilizes Google Gemini (`gemini-2.5-flash`) via the `google-genai` SDK. Below are the prompts engineered into `backend/app/ai_service.py`:
+The application utilizes Google Gemini (`gemini-3.0-flash`) via the `google-genai` SDK. Below are the prompts engineered into `backend/app/ai_service.py`:
 
 ### 1. Follow-up Email Generator Prompt
 ```text
